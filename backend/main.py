@@ -5,6 +5,7 @@ from database import get_db
 from auth import router as auth_router
 from documents import router as documents_router
 from profile import router as profile_router
+from career_routes import router as career_router
 
 app = FastAPI(
     title="SkillTwin API",
@@ -15,7 +16,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(documents_router)
 app.include_router(profile_router)
-
+app.include_router(career_router)
 @app.get("/health")
 def health_check():
     return {"status": "ok", "service": "skilltwin-backend"}
