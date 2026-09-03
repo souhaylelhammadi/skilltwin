@@ -91,3 +91,33 @@ class UserSkill(Base):
 
     user: Mapped["User"] = relationship("User", backref="user_skills")
     skill: Mapped["Skill"] = relationship("Skill")
+
+
+
+
+class JobRole(Base):
+    __tablename__ = "job_roles"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    name: Mapped[str] = mapped_column(String(150), unique=True, nullable=False)
+    description: Mapped[str] = mapped_column(String(1000), nullable=True)
+
+
+class JobRoleSkill(Base):
+    __tablename__ = "job_role_skills"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    job_role_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("job_roles.id"), nullable=False, index=True
+    )
+    skill_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("skills.id"), nullable=False, index=True
+    )
+    weight: Mapped[float] = mapped_column(Float, default=1.0, nullable=False)
+
+    job_role: Mapped["JobRole"] = relationship("JobRole", backref="required_skills")
+    skill: Mapped["Skill"] = relationship("Skill")
