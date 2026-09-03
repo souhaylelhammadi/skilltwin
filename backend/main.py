@@ -2,12 +2,15 @@ from fastapi import FastAPI, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from database import get_db
+from auth import router as auth_router
 
 app = FastAPI(
     title="SkillTwin API",
     description="API backend pour SkillTwin — AI Career Digital Twin",
     version="0.1.0",
 )
+
+app.include_router(auth_router)
 
 
 @app.get("/health")
