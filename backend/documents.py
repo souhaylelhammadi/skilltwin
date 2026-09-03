@@ -104,3 +104,4 @@ def get_document(
         "extracted_text": document.extracted_text,
         "uploaded_at": document.uploaded_at.isoformat(),
     }
+
