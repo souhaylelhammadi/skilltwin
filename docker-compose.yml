@@ -50,6 +50,21 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
+    
+  minio:
+    image: minio/minio:latest
+    container_name: skilltwin_minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: skilltwin
+      MINIO_ROOT_PASSWORD: skilltwin_dev_password
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
 
 volumes:
   postgres_data:
+  minio_data:
