@@ -1,0 +1,26 @@
+# Node / Next.js
+node_modules/
+.next/
+out/
+
+# Python / FastAPI
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environnement
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.override.yml
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
