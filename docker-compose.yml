@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: skilltwin_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: skilltwin
+      POSTGRES_PASSWORD: skilltwin_dev_password
+      POSTGRES_DB: skilltwin_db
+    ports:
+      - "5442:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  redis:
+    image: redis:7-alpine
+    container_name: skilltwin_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: skilltwin_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: skilltwin_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+volumes:
+  postgres_data:
