@@ -1,15 +1,40 @@
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
+import LogoutButton from "@/components/LogoutButton";
 
+export default async function Home() {
+  const session = await getCurrentUser();
 
-export default function Home() {
+  if (!session) {
+    redirect("/login");
+  }
+
+  const { user } = session;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-white px-6 text-center">
-      <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-        SkillTwin
-      </h1>
-      <p className="mt-4 max-w-md text-lg text-gray-600">
-        Votre jumeau numérique professionnel, pour savoir où vous en êtes et où
-        aller.
-      </p>
+    <main className="flex min-h-screen flex-col items-center bg-white px-6 py-16">
+      <div className="w-full max-w-2xl">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Bonjour, {user.first_name || user.email} 👋
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Bienvenue sur votre jumeau numérique professionnel.
+            </p>
+          </div>
+          <LogoutButton />
+        </div>
+
+        <div className="rounded-lg border border-gray-200 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            Prochaine étape
+          </h2>
+          <p className="text-gray-600">
+            Uploadez votre CV pour que SkillTwin analyse vos compétences.
+          </p>
+        </div>
+      </div>
     </main>
   );
 }
