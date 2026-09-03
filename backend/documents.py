@@ -8,6 +8,7 @@ from database import get_db
 from models import Document, DocumentStatus, DocumentType, User
 from auth import get_current_user
 from storage import upload_file, ensure_bucket_exists
+from tasks import extract_document_text
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
@@ -64,11 +65,42 @@ async def upload_document(
     db.commit()
     db.refresh(document)
 
+    extract_document_text.delay(str(document.id))
+
     return {
         "id": str(document.id),
         "original_filename": document.original_filename,
         "file_type": document.file_type.value,
         "file_size_bytes": document.file_size_bytes,
         "status": document.status.value,
+        "uploaded_at": document.uploaded_at.isoformat(),
+    }
+
+
+
+@router.get("/{document_id}")
+def get_document(
+    document_id: uuid.UUID,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    document = (
+        db.query(Document)
+        .filter(Document.id == document_id, Document.user_id == current_user.id)
+        .first()
+    )
+    if document is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document introuvable.",
+        )
+
+    return {
+        "id": str(document.id),
+        "original_filename": document.original_filename,
+        "file_type": document.file_type.value,
+        "file_size_bytes": document.file_size_bytes,
+        "status": document.status.value,
+        "extracted_text": document.extracted_text,
         "uploaded_at": document.uploaded_at.isoformat(),
     }
