@@ -29,3 +29,13 @@ def upload_file(storage_key: str, file_data, file_size: int, content_type: str) 
         length=file_size,
         content_type=content_type,
     )
+
+
+
+def download_file(storage_key: str) -> bytes:
+    response = minio_client.get_object(MINIO_BUCKET_NAME, storage_key)
+    try:
+        return response.read()
+    finally:
+        response.close()
+        response.release_conn()
