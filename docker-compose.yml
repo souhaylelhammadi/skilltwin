@@ -35,6 +35,7 @@ services:
       - redis
     volumes:
       - ./backend:/app
+      - /app/__pycache__
 
   frontend:
     build:
