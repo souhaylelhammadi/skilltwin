@@ -64,6 +64,22 @@ services:
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
+  
+  celery_worker:
+    build:
+      context: ./backend
+    container_name: skilltwin_celery_worker
+    restart: unless-stopped
+    command: celery -A celery_app worker --loglevel=info
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - postgres
+      - redis
+      - minio
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__
 
 volumes:
   postgres_data:
