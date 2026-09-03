@@ -11,3 +11,4 @@ Plateforme intelligente qui crée un jumeau numérique professionnel de l'utilis
 - IA / NLP : Transformers, spaCy, sentence-transformers
 - Machine Learning : scikit-learn, XGBoost, PyTorch
 - Infrastructure : Redis, Celery, Docker, MinIO
+
