@@ -108,8 +108,8 @@ export default function CvUpload() {
       {!documentId && (
         <>
           <p className="text-sm text-gray-600 mb-4 sm:text-base">
-            Uploadez votre CV (PDF ou DOCX, 5 Mo max) pour que SkillTwin
-            analyse vos compétences.
+            Uploadez votre CV (PDF ou DOCX, 5 Mo max) pour que SkillTwin analyse
+            vos compétences.
           </p>
 
           <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border-2 border-dashed border-gray-300 px-4 py-8 text-center hover:border-gray-400">
@@ -124,7 +124,7 @@ export default function CvUpload() {
               accept=".pdf,.docx"
               onChange={handleFileChange}
               disabled={uploadMutation.isPending}
-              className="hidden"
+              className="sr-only"
             />
           </label>
         </>
@@ -159,8 +159,8 @@ export default function CvUpload() {
           </p>
 
           {currentStatus === "processed" && (
-            
-             <a href="/profile"
+            <a
+              href="/profile"
               className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-gray-900 underline"
             >
               Voir mon profil de compétences
