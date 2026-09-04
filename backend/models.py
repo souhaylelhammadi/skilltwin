@@ -121,3 +121,19 @@ class JobRoleSkill(Base):
 
     job_role: Mapped["JobRole"] = relationship("JobRole", backref="required_skills")
     skill: Mapped["Skill"] = relationship("Skill")
+    
+class LearningResource(Base):
+    __tablename__ = "learning_resources"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    skill_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("skills.id"), nullable=False, index=True
+    )
+    resource_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "course" ou "project"
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    description: Mapped[str] = mapped_column(String(1000), nullable=True)
+    url: Mapped[str] = mapped_column(String(500), nullable=True)
+
+    skill: Mapped["Skill"] = relationship("Skill")
