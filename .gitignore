@@ -24,3 +24,9 @@ docker-compose.override.yml
 
 # Logs
 *.log
+
+
+# Outils/extensions locaux
+.codebasenotes-annotations.json
+# Outils/extensions locaux
+.codebasenotes-annotations.json

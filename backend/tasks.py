@@ -132,3 +132,11 @@ def extract_skills_from_document(document_id: str):
 
     finally:
         db.close()
+
+
+
+
+@celery_app.task(name="sync_job_postings_task")
+def sync_job_postings_task():
+    from job_sync import sync_job_postings
+    return sync_job_postings(limit=50)
