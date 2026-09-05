@@ -26,12 +26,11 @@ export default async function Home() {
           </div>
           <LogoutButton />
         </div>
-
         <nav className="flex gap-3 mb-6">
           <a href="/profile" className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Mon profil</a>
           <a href="/career" className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Career Score</a>
+          <a href="/learning-path" className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Parcours</a>
         </nav>
-
         <CvUpload />
       </div>
     </main>
