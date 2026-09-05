@@ -256,12 +256,12 @@ export default function CareerPage() {
             )}
 
             {simulatableSkills.length > 0 && (
-              <div className="mt-6 rounded-lg bg-blue-50 p-4">
+              <div className="mt-6 rounded-lg border-2 border-blue-200 bg-white p-4">
                 <h3 className="flex items-center gap-1.5 text-sm font-semibold text-blue-900">
                   <FlaskConical className="h-4 w-4" />
                   Simuler l&apos;apprentissage de compétences
                 </h3>
-                <p className="text-sm text-blue-800 mt-1 mb-3">
+                <p className="text-sm text-gray-700 mt-1 mb-3">
                   Cochez des compétences pour voir leur impact sur votre score.
                 </p>
 
